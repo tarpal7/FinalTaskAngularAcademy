@@ -1,0 +1,126 @@
+<form
+  class="card"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="card-content">
+    <span class="card-title">Створити  аккаунт</span>
+    <div class="input-field">
+      <input
+        formControlName="email"
+        id="email"
+        type="email"
+        [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}"
+      >
+      <label for="email">Email:</label>
+      <span
+        class="helper-text red-text"
+        *ngIf="form.get('email').invalid && form.get('email').touched"
+      >
+        <span *ngIf="form.get('email').errors['required']">не заповнений email</span>
+        <span *ngIf="form.get('email').errors['email']">неправильно введений email</span>
+      </span>
+    </div>
+    <div class="input-field">
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}"
+      >
+      <label for="password">Пароль:</label>
+      <span
+        class="helper-text red-text"
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+      >
+        <span *ngIf="form.get('password').errors['required']">не заповнений пароль</span>
+        <span *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
+          Пароль має бути більшим {{form.get('password').errors['minlength']['requiredLength']}} символів.
+          Зараз {{form.get('password').errors['minlength']['actualLength']}}
+        </span>
+          <span *ngIf="form.get('password').errors['pattern']">
+          В паролі повинні бути символи нижнього та верхнього регістру, цифри або спец. символи (!@#$%...)
+        </span>
+      </span>
+    </div>
+
+
+    <div class="input-field">
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        [ngClass]="{'invalid': form.get('username').invalid && form.get('username').touched}"
+      >
+      <label for="username">Імя користувача:</label>
+      <span
+        class="helper-text red-text"
+        *ngIf="form.get('username').invalid && form.get('username').touched"
+      >
+          <span *ngIf="form.get('username').errors['required']">не заповнене поле Імя</span>
+
+        </span>
+    </div>
+
+    <div class="input-field">
+      <input
+        id="phone"
+        type="text"
+        formControlName="phone"
+        [ngClass]="{'invalid': form.get('phone').invalid && form.get('phone').touched}"
+      >
+      <label for="username">Номер телефону:</label>
+      <span
+        class="helper-text red-text"
+        *ngIf="form.get('phone').invalid && form.get('phone').touched"
+      >
+         <span *ngIf="form.get('phone').errors['minlength'] && form.get('phone').errors['minlength']['requiredLength']">
+          Телефон має бути більшим {{form.get('phone').errors['minlength']['requiredLength']}} символів.
+          Зараз {{form.get('password').errors['minlength']['actualLength']}}
+        </span>
+
+        </span>
+    </div>
+
+    <div>
+      <input
+        type="file"
+        class="dn"
+        (change)="onFileUpload2($event)"
+        #input
+      >
+      <!--<button-->
+        <!--(click)="triggerClick()"-->
+        <!--[disabled]="form.disabled"-->
+        <!--type="button"-->
+        <!--class="waves-effect waves-light btn orange lighten-2 mb2"-->
+      <!--&gt;-->
+        <!--<i class="material-icons left">backup</i>-->
+        <!--Завантажити аватарку-->
+      <!--</button>-->
+    </div>
+
+    <div class="col s12 l4 center">
+      <img
+        class="responsive-img h200"
+        [src]="imagePreview"
+        *ngIf="imagePreview"
+      >
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class="card-action">
+    <button
+      type="submit"
+      class="modal-action btn waves-effect"
+      [disabled]="form.invalid || form.disabled"
+    >
+      Створити
+    </button>
+  </div>
+</form>
